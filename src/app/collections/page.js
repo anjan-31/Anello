@@ -61,8 +61,8 @@ function CollectionsContent() {
 
   const [heroIdx, setHeroIdx] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const desktopHero = ['/1.png', '/2.png', '/3.png'];
-  const mobileHero = ['/1.png', '/2.png', '/3.png'];
+  const desktopHero = ['/diamond-rings-hero.webp', '/gold-rings-banner.webp', '/silver-rings-banner.webp'];
+  const mobileHero = ['/diamond-rings-hero.webp', '/gold-rings-banner.webp', '/silver-rings-banner.webp'];
   const heroImages = isMobile ? mobileHero : desktopHero;
 
   useEffect(() => {

@@ -138,8 +138,8 @@ export default function Home() {
   const heroImages = isMobile ? mobileHero : desktopHero;
 
   const [promoSliderIdx, setPromoSliderIdx] = useState(0);
-  const pcPromoImages = ['/PC1.webp', '/PC2.png', '/PC3.webp', '/PC4.webp'];
-  const mobilePromoImages = ['/PC1.webp', '/PC2.png', '/PC3.webp', '/PC4.webp'];
+  const pcPromoImages = ['/PC1.webp', '/PC3.webp', '/PC4.webp'];
+  const mobilePromoImages = ['/PC1.webp', '/PC3.webp', '/PC4.webp'];
   const currentPromoImages = isMobile ? mobilePromoImages : pcPromoImages;
 
   const handleCheckout = () => {
@@ -444,7 +444,23 @@ export default function Home() {
                           );
                         })()}
                       </div>
-                      <button className="add-cart" onClick={(e) => { e.stopPropagation(); addToCart(p); }} id={`add-${p._id || p.id}`} aria-label="Add to cart">+</button>
+                    </div>
+                    <div className="product-action-btns">
+                      <button
+                        className="pc-add-cart-btn"
+                        onClick={(e) => { e.stopPropagation(); addToCart(p); showToast('Added to cart!'); }}
+                        id={`add-${p._id || p.id}`}
+                        aria-label="Add to cart"
+                      >
+                        🛒 Add to Cart
+                      </button>
+                      <button
+                        className="pc-buy-now-btn"
+                        onClick={(e) => { e.stopPropagation(); addToCart(p); router.push('/checkout'); }}
+                        aria-label="Buy Now"
+                      >
+                        Buy Now
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -471,25 +487,23 @@ export default function Home() {
               borderRadius: isMobile ? '0' : '16px',
               overflow: 'hidden',
               boxShadow: isMobile ? 'none' : 'var(--shadow-card)',
-              display: 'grid',
-              alignSelf: 'center'
+              position: 'relative',
+              alignSelf: 'center',
+              lineHeight: 0
            }}>
              {currentPromoImages.map((imgSrc, idx) => (
                 <Link
                   href="/collections"
                   key={imgSrc}
                   style={{
+                    position: idx === 0 ? 'relative' : 'absolute',
+                    inset: 0,
                     display: 'block',
-                    gridArea: '1 / 1',
                     opacity: idx === promoSliderIdx ? 1 : 0,
                     transition: 'opacity 1s ease-in-out',
                     zIndex: idx === promoSliderIdx ? 1 : 0,
                     width: '100%',
-                    height: '100%',
                     cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
                   }}
                 >
                   <Image
@@ -497,24 +511,21 @@ export default function Home() {
                     alt={
                       imgSrc.includes('PC1.webp')
                         ? 'Shop gold rings collection — Up to 30% off at Anello'
-                        : imgSrc.includes('PC2.png')
-                        ? 'Exclusive diamond rings collection — Certified fine jewelry'
                         : imgSrc.includes('PC3.webp')
                         ? 'Sterling silver couple bands — Free shipping India'
                         : imgSrc.includes('PC4.webp')
                         ? 'Special edition anniversary rings — BIS Hallmarked'
                         : `Promo Banner ${idx + 1}`
                     }
-                    width={1000}
-                    height={1000}
+                    width={800}
+                    height={500}
                     sizes="(max-width: 768px) 100vw, 50vw"
                     priority={idx === 0}
                     style={{
                       width: '100%',
                       height: 'auto',
-                      maxHeight: '100%',
-                      objectFit: 'contain',
-                      display: 'block'
+                      display: 'block',
+                      objectFit: 'cover',
                     }}
                   />
                 </Link>
@@ -590,7 +601,23 @@ export default function Home() {
                               );
                             })()}
                           </div>
-                          <button className="add-cart" onClick={(e) => { e.stopPropagation(); addToCart(p); }} id={`add-exc-${p._id || p.id}`} aria-label="Add to cart">+</button>
+                        </div>
+                        <div className="product-action-btns">
+                          <button
+                            className="pc-add-cart-btn"
+                            onClick={(e) => { e.stopPropagation(); addToCart(p); showToast('Added to cart!'); }}
+                            id={`add-exc-${p._id || p.id}`}
+                            aria-label="Add to cart"
+                          >
+                            🛒 Add
+                          </button>
+                          <button
+                            className="pc-buy-now-btn"
+                            onClick={(e) => { e.stopPropagation(); addToCart(p); router.push('/checkout'); }}
+                            aria-label="Buy Now"
+                          >
+                            Buy
+                          </button>
                         </div>
                       </div>
                     </div>
