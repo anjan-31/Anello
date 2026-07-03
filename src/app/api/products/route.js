@@ -82,8 +82,22 @@ export async function GET(req) {
     // Update products with review counts
     const updatedProducts = products.map(p => ({
       ...p,
-      reviews: reviewCountMap[p._id.toString()] || 0
+      reviews: reviewCountMap[p._id.toString()] || 0,
+      // Auto-generate slug if missing so links never become /products/undefined
+      slug: p.slug || slugify(p.name)
     }));
+
+    // Patch any products missing a slug in the DB (run silently in background)
+    const missingSlug = products.filter(p => !p.slug);
+    if (missingSlug.length > 0) {
+      const bulkOps = missingSlug.map(p => ({
+        updateOne: {
+          filter: { _id: p._id },
+          update: { $set: { slug: slugify(p.name) } }
+        }
+      }));
+      Product.bulkWrite(bulkOps).catch(() => {});
+    }
 
     // Only seed reviews if fetching all products (not homepage)
     if (!onlyHome && products.length > 0) {

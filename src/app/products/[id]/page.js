@@ -18,7 +18,11 @@ import {
 export async function generateMetadata({ params }) {
   const { id } = await params;
   await connectDB();
-  const product = await Product.findOne({ slug: id }).lean();
+  let product = await Product.findOne({ slug: id }).lean();
+  // Fallback: try by _id if slug lookup missed
+  if (!product && id.match(/^[a-f\d]{24}$/i)) {
+    product = await Product.findById(id).lean();
+  }
   if (!product) return { title: 'Product Not Found | Anello' };
   return generateProductMeta(product);
 }
@@ -50,7 +54,19 @@ function TrustRow() {
 export default async function ProductPage({ params }) {
   const { id } = await params;
   await connectDB();
-  const product = await Product.findOne({ slug: id }).lean();
+  let product = await Product.findOne({ slug: id }).lean();
+  // Fallback: try by _id if slug lookup missed
+  if (!product && id.match(/^[a-f\d]{24}$/i)) {
+    product = await Product.findById(id).lean();
+  }
+  // Auto-generate and save slug if missing
+  if (product && !product.slug) {
+    const autoSlug = product.name.toString().toLowerCase()
+      .replace(/\s+/g, '-').replace(/[^\w\-]+/g, '')
+      .replace(/\-\-+/g, '-').replace(/^-+/, '').replace(/-+$/, '');
+    await Product.findByIdAndUpdate(product._id, { slug: autoSlug });
+    product = { ...product, slug: autoSlug };
+  }
   if (!product) notFound();
 
   // Fetch related products for internal linking SEO

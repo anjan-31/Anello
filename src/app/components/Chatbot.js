@@ -95,7 +95,7 @@ export default function Chatbot() {
         
         if (product) {
           return (
-            <a key={index} href={`/product/${product.slug}`} className="chat-product-card" target="_blank" rel="noopener noreferrer">
+            <a key={index} href={`/products/${product.slug}`} className="chat-product-card" target="_blank" rel="noopener noreferrer">
               <img src={product.images?.[0] || '/placeholder.png'} alt={product.name} className="chat-product-img" />
               <div className="chat-product-info">
                 <div className="chat-product-name">{product.name}</div>
