@@ -1,0 +1,118 @@
+<USER_REQUEST>
+Yeh lo — ek complete, copy-paste ready prompt jo aap Antigravity (ya kisi bhi developer) ko de sako:
+
+📋 Complete Fix Prompt for Developer
+
+
+Project: Anello World (anelloworld.com) — Full Security, SEO & UX Fix
+Stack: Next.js (based on _next/image URLs)
+
+🔴 CRITICAL FIXES (Pehle Karo)
+1. Logo File Rename
+
+Current file: /public/logo bg.png (space in name)
+Rename to: /public/logo-bg.png
+Update ALL references in codebase:
+
+<Image src="/logo bg.png" /> → <Image src="/logo-bg.png" />
+meta-og:image → https://www.anelloworld.com/logo-bg.png
+meta-twitter:image → https://www.anelloworld.com/logo-bg.png
+
+
+Also rename /public/logo bg.png physical file on server
+
+2. Privacy Policy Page — LEGALLY MANDATORY (IT Act 2000)
+
+Create new page: /privacy-policy
+Must include:
+
+What data we collect (name, email, phone, address, pincode)
+How we use it (order processing, shipping)
+Third party sharing policy
+Cookie usage
+User rights (data deletion request)
+Contact email for privacy queries
+
+
+Add link in footer alongside Refund Policy and Terms & Conditions
+Add to sitemap.xml
+
+3. Return Policy — Update FAQ
+
+Current: "24-hour return policy" → Change to minimum 7-day return policy
+Update in:
+
+FAQ section on homepage
+/refund-policy page
+Any product page mentions
+
+
+Reason: Consumer Protection Act 2019 compliance + customer trust
+
+4. WhatsApp Number Obfuscation
+
+Current: href="https://wa.me/919545457711" (number visible in HTML source)
+Fix: Use a click-to-reveal method OR route through a contact form
+Minimum fix — add rel="nofollow noopener" to the WhatsApp anchor tag:
+html<a href="https://wa.me/919545457711" rel="nofollow noopener noreferrer" target="_blank">
+
+Better fix: Store number in environment variable, render via API route so it's not in static HTML
+
+5. Login / Cart — Bot Protection
+
+Add rate limiting on /login POST endpoint (max 5 attempts per IP per minute)
+Add Google reCAPTCHA v3 on login form
+Add honeypot field on all forms
+Use next-rate-limit or similar middleware
+
+
+🟡 SEO FIXES (High Priori
+<truncated 3841 bytes>
+ to: Mumbai 400001" confirmation state after entry
+
+16. 404 Page
+
+Verify a custom branded 404 page exists at app/not-found.tsx
+Should have: Logo + "Page not found" + link back to homepage + search bar
+
+17. Footer — Add Missing Links
+
+Currently missing: Privacy Policy, Shipping Policy, About Us, Contact Us, Size Guide
+Add all of these to footer navigation
+
+18. Performance — Image Filenames
+
+/1.webp, /2.webp, /3.webp are not descriptive
+Rename to: diamond-rings-hero.webp, gold-rings-banner.webp etc.
+This helps Google Image Search rankings
+
+
+✅ TESTING CHECKLIST (After All Fixes)
+
+ Run https://search.google.com/test/rich-results — check Product schema
+ Run https://developers.facebook.com/tools/debug/ — check OG tags
+ Run https://cards-dev.twitter.com/validator — check Twitter card
+ Run https://pagespeed.web.dev — Core Web Vitals score
+ Check https://www.anelloworld.com/sitemap.xml loads correctly
+ Verify Privacy Policy page is live and linked in footer
+ Test login with wrong password 6 times — rate limiting should trigger
+ Test WhatsApp link still works after obfuscation
+ Verify no duplicate products on homepage
+ Check all blog articles have product internal links
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-06-22T14:42:40+05:30.
+
+The user's current state is as follows:
+Active Document: a:\An\.env.local (LANGUAGE_UNSPECIFIED)
+Cursor is on line: 1
+Other open documents:
+- a:\An\src\app\api\seed\clear\route.js (LANGUAGE_JAVASCRIPT)
+- a:\An\src\app\api\seed\category\route.js (LANGUAGE_JAVASCRIPT)
+- a:\An\src\app\api\my-orders\route.js (LANGUAGE_JAVASCRIPT)
+- a:\An\src\app\api\products\route.js (LANGUAGE_JAVASCRIPT)
+- a:\An\src\app\components\Header.js (LANGUAGE_JAVASCRIPT)
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from None to Gemini 3.5 Flash (High). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>
