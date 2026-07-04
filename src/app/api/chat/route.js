@@ -47,7 +47,7 @@ export async function POST(req) {
             WEBSITE CONTENT DETAILS:
             - Store Name: Anello Fine Rings.
             - Products: Handcrafted premium rings in Silver, Gold, and Diamond.
-            - Categories: Silver Rings (Sterling Silver, Amethyst, Black Titanium), Gold Rings (18K & 22K Yellow/Rose Gold), Diamond Rings (Solitaires, Halo, Trilogy).
+            - Categories: Silver Rings (Sterling Silver, Amethyst, Black Titanium, Geometric, Minimalist, Couple, Engagement styles).
             - Key Services: BIS Hallmarked jewelry, Free Pan-India Shipping, 7-Day Hassle-free Returns, 0% Making Charges on Gold jewelry.
             - Trust: GIA/IGI Certified Diamonds, 500+ designs, 18K+ customers.
             - Support: Ring Size Guide, Order Tracking, Jewelry Care.

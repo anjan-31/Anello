@@ -120,7 +120,7 @@ const DEFAULT_PRODUCTS = [
   { id:8, name:'Infinity Love Couple Set', cat:'Silver Ring', price:18999, stock:19, sold:0, emoji:'❤️', badge:'-24%', isNewArrival:false, description:'Matching infinity love couple set.', images:[] },
 ];
 
-const CATS = ['Silver Ring', 'Gold Ring', 'Diamond Ring'];
+const CATS = ['Silver Ring'];
 const EMOJIS = ['💍','💛','🌹','💎','💜','🖤','💚','❤️','✨','👑','🔮','🎀'];
 
 const EMPTY_PROD = { name:'', cat:'Silver Ring', price:'', stock:'', sold:'0', emoji:'💍', badge:'', isNewArrival:false, isStylish:false, isBestSeller:false, isExclusive:false, description:'', images:[], video:'' };
@@ -1004,15 +1004,6 @@ export default function AdminPage() {
                     </select>
                   </div>
 
-                  {/* Emoji */}
-                  <div className="adm-modal-field">
-                    <label className="adm-modal-label">Emoji Icon</label>
-                    <div className="adm-emoji-grid">
-                      {EMOJIS.map(em=>(
-                        <button key={em} type="button" className={`adm-emoji-btn ${prodForm.emoji===em?'active':''}`} onClick={()=>handleProdFormChange('emoji',em)}>{em}</button>
-                      ))}
-                    </div>
-                  </div>
 
                   {/* Price */}
                   <div className="adm-modal-field">

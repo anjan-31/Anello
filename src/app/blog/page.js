@@ -114,16 +114,13 @@ export default function BlogPage() {
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', color: 'var(--text)', marginBottom: '1rem' }}>
             Ready to Find Your Ring?
           </h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Browse our full collection of certified diamond, gold, and silver rings.</p>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Browse our full collection of sterling silver rings.</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/diamond-rings" style={{ padding: '0.8rem 1.8rem', background: 'linear-gradient(135deg,#d4af37,#c8a028)', color: '#fff', borderRadius: '50px', textDecoration: 'none', fontWeight: 600 }}>
-              Diamond Rings
+            <Link href="/silver-rings" style={{ padding: '0.8rem 1.8rem', background: 'linear-gradient(135deg,#e91e8c,#f06292)', color: '#fff', borderRadius: '50px', textDecoration: 'none', fontWeight: 600 }}>
+              Silver Rings
             </Link>
             <Link href="/engagement-rings" style={{ padding: '0.8rem 1.8rem', background: 'var(--bg2)', border: '1.5px solid var(--border2)', color: 'var(--text)', borderRadius: '50px', textDecoration: 'none', fontWeight: 600 }}>
               Engagement Rings
-            </Link>
-            <Link href="/gold-rings" style={{ padding: '0.8rem 1.8rem', background: 'var(--bg2)', border: '1.5px solid var(--border2)', color: 'var(--text)', borderRadius: '50px', textDecoration: 'none', fontWeight: 600 }}>
-              Gold Rings
             </Link>
           </div>
         </div>

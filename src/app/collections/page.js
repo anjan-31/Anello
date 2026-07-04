@@ -17,10 +17,11 @@ const PRICE_RANGES = [
   { label: '₹50,000 – ₹1,00,000', min: 50000, max: 100000 },
   { label: 'Above ₹1,00,000', min: 100000, max: Infinity },
 ];
-const CATEGORIES = ['Silver Ring', 'Gold Ring', 'Diamond Ring'];
+const CATEGORIES = ['Silver Ring'];
 const SORT_OPTIONS = ['Popular', 'Price: Low to High', 'Price: High to Low', 'Newest', 'Discount'];
 
-function Stars({ r = 5 }) {
+function Stars({ r = 5, count = 0 }) {
+  if (!count) return null;
   return <span style={{ color: '#e91e8c', fontSize: '0.8rem' }}>{'★'.repeat(Math.floor(r))}{'☆'.repeat(5 - Math.floor(r))}</span>;
 }
 
@@ -281,8 +282,8 @@ function CollectionsContent() {
                       <div className="cp-card-cat">{p.cat}</div>
                       <div className="cp-card-name">{p.name}</div>
                       <div className="cp-stars-row">
-                        <Stars r={p.rating || 5} />
-                        <span className="cp-reviews">({p.reviews || 0})</span>
+                        <Stars r={p.rating || 5} count={p.reviews || 0} />
+                        {(p.reviews > 0) && <span className="cp-reviews">({p.reviews})</span>}
                       </div>
                       <div className="cp-price-row">
                         {discountPrice ? (

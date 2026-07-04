@@ -99,54 +99,6 @@ export async function GET(req) {
       Product.bulkWrite(bulkOps).catch(() => {});
     }
 
-    // Only seed reviews if fetching all products (not homepage)
-    if (!onlyHome && products.length > 0) {
-      const productsNeedingReviews = updatedProducts.filter(p => p.reviews === 0);
-      
-      if (productsNeedingReviews.length > 0) {
-        const reviewsToInsert = [];
-        productsNeedingReviews.forEach(product => {
-          const seededReviews = [
-            {
-              productId: product._id,
-              name: 'Priya Sharma',
-              city: 'Mumbai',
-              rating: 5,
-              text: `The ${product.name} is absolutely stunning. The craftsmanship is impeccable and it arrived beautifully packed with the certificate.`,
-              createdAt: new Date('2026-03-15T12:00:00Z')
-            },
-            {
-              productId: product._id,
-              name: 'Ananya Reddy',
-              city: 'Hyderabad',
-              rating: 5,
-              text: 'Ordered as an anniversary gift. My partner was speechless! The quality is far beyond what I expected at this price point.',
-              createdAt: new Date('2026-02-28T12:00:00Z')
-            },
-            {
-              productId: product._id,
-              name: 'Kavya Nair',
-              city: 'Bengaluru',
-              rating: 4,
-              text: 'Gorgeous ring. Delivery was quick and the packaging was luxurious. Very happy with the purchase.',
-              createdAt: new Date('2026-01-10T12:00:00Z')
-            }
-          ];
-          reviewsToInsert.push(...seededReviews);
-        });
-        
-        // Insert all reviews at once
-        if (reviewsToInsert.length > 0) {
-          await Review.insertMany(reviewsToInsert, { ordered: false });
-          // Update product review counts
-          await Product.updateMany(
-            { _id: { $in: productsNeedingReviews.map(p => p._id) } },
-            { $set: { reviews: 3, rating: 4.7 } }
-          );
-        }
-      }
-    }
-
     return NextResponse.json(updatedProducts);
   } catch (error) {
     console.error('API GET Products Error:', error);

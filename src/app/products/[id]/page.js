@@ -451,12 +451,6 @@ export default async function ProductPage({ params }) {
             <Link href={`/${catSlug}`} style={{ padding: '0.7rem 1.5rem', background: 'var(--bg2)', border: '1.5px solid var(--border2)', borderRadius: '50px', color: 'var(--text)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>
               ← All {catLabel}
             </Link>
-            <Link href="/diamond-rings" style={{ padding: '0.7rem 1.5rem', background: 'var(--bg2)', border: '1.5px solid var(--border2)', borderRadius: '50px', color: 'var(--text)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>
-              Diamond Rings
-            </Link>
-            <Link href="/gold-rings" style={{ padding: '0.7rem 1.5rem', background: 'var(--bg2)', border: '1.5px solid var(--border2)', borderRadius: '50px', color: 'var(--text)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>
-              Gold Rings
-            </Link>
             <Link href="/engagement-rings" style={{ padding: '0.7rem 1.5rem', background: 'var(--bg2)', border: '1.5px solid var(--border2)', borderRadius: '50px', color: 'var(--text)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>
               Engagement Rings
             </Link>

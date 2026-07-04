@@ -379,11 +379,11 @@ export default function TrustPage() {
             Ready to Find Your Perfect Ring?
           </h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', lineHeight: 1.7, maxWidth: '600px', margin: '0 auto 2rem' }}>
-            Shop Anello's certified diamond, gold and silver rings with complete confidence — BIS Hallmarked, IGI certified, free shipping, 7-day returns.
+            Shop Anello's sterling silver rings with complete confidence — free shipping, 7-day returns.
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/diamond-rings" style={{ padding: '0.9rem 2rem', background: 'linear-gradient(135deg,#d4af37,#c8a028)', color: '#fff', borderRadius: '50px', textDecoration: 'none', fontWeight: 700 }}>
-              💎 Shop Diamond Rings
+            <Link href="/silver-rings" style={{ padding: '0.9rem 2rem', background: 'linear-gradient(135deg,#e91e8c,#f06292)', color: '#fff', borderRadius: '50px', textDecoration: 'none', fontWeight: 700 }}>
+              💍 Shop Silver Rings
             </Link>
             <Link href="/engagement-rings" style={{ padding: '0.9rem 2rem', background: 'var(--bg2)', border: '1.5px solid var(--border2)', color: 'var(--text)', borderRadius: '50px', textDecoration: 'none', fontWeight: 600 }}>
               Engagement Rings

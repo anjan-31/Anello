@@ -27,7 +27,10 @@ export default function Header() {
 
   const updateLocation = (text) => {
     setLocationText(text);
-    localStorage.setItem('anello_delivery_pincode', text);
+    // Only save real detected locations (not fallback messages)
+    if (text && text.startsWith('Delivering to:')) {
+      localStorage.setItem('anello_delivery_pincode', text);
+    }
   };
 
   const announcements = [
@@ -37,8 +40,6 @@ export default function Header() {
 
   const NAV_CATEGORIES = [
     { name: 'Silver Rings', href: '/silver-rings' },
-    { name: 'Gold Rings', href: '/gold-rings' },
-    { name: 'Diamond Rings', href: '/diamond-rings' },
     { name: 'Engagement Rings', href: '/engagement-rings' },
     { name: 'Couple Rings', href: '/couple-rings' },
     { name: 'Minimalist Rings', href: '/minimalist-rings' },
@@ -58,23 +59,66 @@ export default function Header() {
     fetchProds();
 
     const savedPin = localStorage.getItem('anello_delivery_pincode');
-    if (savedPin) {
+    if (savedPin && savedPin.startsWith('Delivering to:')) {
       setLocationText(savedPin);
     } else {
-      const fetchLocation = async () => {
-        try {
-          const res = await fetch('https://ipinfo.io/json');
-          const data = await res.json();
-          if (data && data.city && data.postal) {
-            updateLocation(`Delivering to: ${data.city} ${data.postal}`);
-          } else if (data && data.city) {
-            updateLocation(`Delivering to: ${data.city}`);
-          }
-        } catch (e) {
-          // Silently fail if blocked by adblocker
-        }
-      };
-      fetchLocation();
+      // Auto-detect location on page load
+      setLocationText('Detecting location...');
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            try {
+              const { latitude, longitude } = position.coords;
+              // BigDataCloud — with API key for better accuracy
+              const res = await fetch(
+                `https://api.bigdatacloud.net/data/reverse-geocode?latitude=${latitude}&longitude=${longitude}&localityLanguage=en&key=${process.env.NEXT_PUBLIC_BIGDATACLOUD_KEY}`
+              );
+              const data = await res.json();
+              const pincode = data.postcode || data.principalSubdivisionCode || '';
+              const city = data.city || data.locality || data.principalSubdivision || '';
+              if (city || pincode) {
+                updateLocation(`Delivering to: ${city}${pincode ? ' ' + pincode : ''}`.trim());
+              } else {
+                setLocationText('Update Delivery Pincode');
+              }
+            } catch {
+              setLocationText('Update Delivery Pincode');
+            }
+          },
+          async () => {
+            // GPS denied — fallback to IP detection
+            try {
+              const res = await fetch('https://ipinfo.io/json');
+              const data = await res.json();
+              if (data?.city && data?.postal) {
+                updateLocation(`Delivering to: ${data.city} ${data.postal}`);
+              } else if (data?.city) {
+                updateLocation(`Delivering to: ${data.city}`);
+              } else {
+                setLocationText('Update Delivery Pincode');
+              }
+            } catch {
+              setLocationText('Update Delivery Pincode');
+            }
+          },
+          { timeout: 10000 }
+        );
+      } else {
+        // Geolocation not supported — fallback to IP
+        (async () => {
+          try {
+            const res = await fetch('https://ipinfo.io/json');
+            const data = await res.json();
+            if (data?.city && data?.postal) {
+              updateLocation(`Delivering to: ${data.city} ${data.postal}`);
+            } else if (data?.city) {
+              updateLocation(`Delivering to: ${data.city}`);
+            } else {
+              setLocationText('Update Delivery Pincode');
+            }
+          } catch { setLocationText('Update Delivery Pincode'); }
+        })();
+      }
     }
 
     const timer = setInterval(() => {

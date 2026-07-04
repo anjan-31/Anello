@@ -61,7 +61,7 @@ export default function NotFound() {
         <form onSubmit={handleSearchSubmit} className="search-form">
           <input 
             type="text" 
-            placeholder='Search "Diamond Solitaires", "Gold Rings", etc.' 
+            placeholder='Search "Silver Rings", "Engagement Rings", etc.' 
             value={searchVal}
             onChange={(e) => setSearchVal(e.target.value)}
             className="search-input"
@@ -79,9 +79,8 @@ export default function NotFound() {
           <h2>Popular Categories</h2>
           <div className="quick-links">
             <Link href="/collections" className="link-btn">All Collections</Link>
-            <Link href="/diamond-rings" className="link-btn">Diamond Rings</Link>
-            <Link href="/gold-rings" className="link-btn">Gold Rings</Link>
             <Link href="/silver-rings" className="link-btn">Silver Rings</Link>
+            <Link href="/engagement-rings" className="link-btn">Engagement Rings</Link>
           </div>
         </div>
 
