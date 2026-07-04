@@ -3,32 +3,34 @@ import connectDB from '@/lib/db';
 import Review from '@/models/Review';
 import Product from '@/models/Product';
 
-// One-time cleanup: removes auto-seeded fake reviews and resets product ratings to 0
+// Hard reset: delete ALL seeded reviews AND reset all product review counts from actual Review docs
 export async function DELETE() {
   try {
     await connectDB();
 
     const seededNames = ['Priya Sharma', 'Ananya Reddy', 'Kavya Nair'];
 
-    // Find all seeded reviews
-    const seededReviews = await Review.find({ name: { $in: seededNames } }).lean();
-    const affectedProductIds = [...new Set(seededReviews.map(r => r.productId?.toString()).filter(Boolean))];
-
-    // Delete seeded reviews
+    // 1. Delete all seeded reviews
     const deleteResult = await Review.deleteMany({ name: { $in: seededNames } });
 
-    // For each affected product, recalculate real review count & rating
-    for (const productId of affectedProductIds) {
-      const realReviews = await Review.find({ productId }).lean();
-      const count = realReviews.length;
-      const avg = count > 0 ? realReviews.reduce((s, r) => s + r.rating, 0) / count : 0;
-      await Product.findByIdAndUpdate(productId, { reviews: count, rating: avg });
+    // 2. Reset ALL products: set reviews=0, rating=0 first
+    await Product.updateMany({}, { $set: { reviews: 0, rating: 0 } });
+
+    // 3. Recalculate for products that have REAL reviews
+    const realReviews = await Review.aggregate([
+      { $group: { _id: '$productId', count: { $sum: 1 }, avgRating: { $avg: '$rating' } } }
+    ]);
+
+    for (const r of realReviews) {
+      await Product.findByIdAndUpdate(r._id, {
+        $set: { reviews: r.count, rating: Math.round(r.avgRating * 10) / 10 }
+      });
     }
 
     return NextResponse.json({
-      message: 'Cleanup done',
+      message: 'Full reset done',
       deletedReviews: deleteResult.deletedCount,
-      productsReset: affectedProductIds.length
+      productsWithRealReviews: realReviews.length
     });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
