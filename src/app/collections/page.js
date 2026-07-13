@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useAuth } from '../context/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useTheme } from '../context/ThemeContext';
 import { useCart } from '../context/CartContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -53,7 +52,6 @@ function CollectionsContent() {
 
   const { user } = useAuth();
   const router = useRouter();
-  const { isDarkMode } = useTheme();
   const {
     cart, cartOpen, setCartOpen,
     wishlist, wishlistOpen, setWishlistOpen,
@@ -254,7 +252,7 @@ function CollectionsContent() {
                           src={p.img || p.images?.[0] || '/placeholder.png'}
                           alt={p.name} fill
                           className="cp-img-primary"
-                          style={{ objectFit: 'cover', mixBlendMode: isDarkMode ? 'normal' : 'darken' }}
+                          style={{ objectFit: 'cover', mixBlendMode: 'darken' }}
                           sizes="(max-width:768px) 50vw, 25vw"
                         />
                         {p.images?.[1] && (
@@ -262,7 +260,7 @@ function CollectionsContent() {
                             src={p.images[1]}
                             alt={`${p.name} alternate view`} fill
                             className="cp-img-secondary"
-                            style={{ objectFit: 'cover', mixBlendMode: isDarkMode ? 'normal' : 'darken' }}
+                            style={{ objectFit: 'cover', mixBlendMode: 'darken' }}
                             sizes="(max-width:768px) 50vw, 25vw"
                           />
                         )}

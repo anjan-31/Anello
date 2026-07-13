@@ -1,6 +1,5 @@
 import "./globals.css";
 import { AuthProvider } from "./context/AuthContext";
-import { ThemeProvider } from "./context/ThemeContext";
 import { CartProvider } from "./context/CartContext";
 import { Cormorant_Garamond, Outfit } from "next/font/google";
 import Chatbot from "./components/Chatbot";
@@ -122,7 +121,6 @@ export default function RootLayout({ children }) {
 
         {/* Theme & PWA */}
         <meta name="theme-color" content="#1a0a00" />
-        <meta name="color-scheme" content="dark light" />
         {/* Favicon */}
         <link rel="icon" href="/icon.png" type="image/png" />
         <link rel="apple-touch-icon" href="/apple-icon.png" />
@@ -139,29 +137,8 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        <script
-          id="theme-script"
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                let savedTheme = localStorage.getItem('theme');
-                if (!savedTheme) {
-                  const hour = new Date().getHours();
-                  const isNight = hour >= 18 || hour < 6;
-                  savedTheme = isNight ? 'dark' : 'light';
-                }
-                if (savedTheme === 'dark') {
-                  document.documentElement.classList.add('dark');
-                } else {
-                  document.documentElement.classList.remove('dark');
-                }
-              } catch (_) {}
-            `,
-          }}
-        />
       </head>
       <body className={`${cormorant.variable} ${outfit.variable}`} suppressHydrationWarning>
-        <ThemeProvider>
           <AuthProvider>
             <CartProvider>
               <Script
@@ -201,7 +178,6 @@ export default function RootLayout({ children }) {
               </Script> */}
             </CartProvider>
           </AuthProvider>
-        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,16 +1,14 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../context/AuthContext';
-import { useTheme } from '../context/ThemeContext';
 import { useCart } from '../context/CartContext';
 
 export default function Header() {
   const router = useRouter();
   const { user, logout } = useAuth();
-  const { isDarkMode, toggleTheme } = useTheme();
   const {
     cart, cartOpen, setCartOpen,
     wishlist, wishlistOpen, setWishlistOpen,
@@ -20,7 +18,8 @@ export default function Header() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const [announcementIdx, setAnnouncementIdx] = useState(0);
+  const [shopMenuOpen, setShopMenuOpen] = useState(false);
+  const shopMenuRef = useRef(null);
   const [dbProducts, setDbProducts] = useState([]);
   const [searchVal, setSearchVal] = useState('');
   const [locationText, setLocationText] = useState('Update Delivery Pincode');
@@ -32,11 +31,6 @@ export default function Header() {
       localStorage.setItem('anello_delivery_pincode', text);
     }
   };
-
-  const announcements = [
-    "Pan India Free Shipping!",
-    "Free Shipping & Packing on Orders Above ₹10,000!"
-  ];
 
   const NAV_CATEGORIES = [
     { name: 'Silver Rings', href: '/silver-rings' },
@@ -121,11 +115,13 @@ export default function Header() {
       }
     }
 
-    const timer = setInterval(() => {
-      setAnnouncementIdx(prev => (prev + 1) % announcements.length);
-    }, 5000);
-
-    return () => clearInterval(timer);
+    const handleOutsideClick = (e) => {
+      if (shopMenuRef.current && !shopMenuRef.current.contains(e.target)) {
+        setShopMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, []);
 
   const handleSearchSubmit = (e) => {
@@ -152,10 +148,37 @@ export default function Header() {
 
   return (
     <>
-      {/* ANNOUNCEMENT BAR */}
-      <div className="announcement-bar">
-        <div className="announcement-inner" key={announcementIdx}>
-          {announcements[announcementIdx]}
+      {/* TOP NAVIGATION BAR */}
+      <div className="top-nav-bar hide-mobile">
+        <div className="top-nav-inner">
+          <Link href="/" className="top-nav-link">HOME</Link>
+          <div className="top-nav-dropdown" ref={shopMenuRef}>
+            <button className="top-nav-link shop-btn" onClick={() => setShopMenuOpen(!shopMenuOpen)}>
+              SHOP <span className="dropdown-arrow">{shopMenuOpen ? '⌃' : '⌄'}</span>
+            </button>
+            {shopMenuOpen && (
+              <div className="shop-dropdown-menu">
+                <div className="shop-dropdown-header">ALL PRODUCTS</div>
+                <div className="shop-dropdown-list">
+                  <Link href="/collections" className="shop-dropdown-item" onClick={() => setShopMenuOpen(false)}>
+                    <span>Exclusive Ring</span>
+                  </Link>
+                  <Link href="/collections" className="shop-dropdown-item" onClick={() => setShopMenuOpen(false)}>
+                    <span>Best Sellers</span>
+                  </Link>
+                  <Link href="/collections" className="shop-dropdown-item" onClick={() => setShopMenuOpen(false)}>
+                    <span>NEW</span>
+                  </Link>
+                  <Link href="/collections" className="shop-dropdown-item" onClick={() => setShopMenuOpen(false)}>
+                    <span>All rings</span>
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+          <Link href="/trust" className="top-nav-link">ABOUT US</Link>
+          <Link href="#testimonials" className="top-nav-link">TESTIMONIALS</Link>
+          <a href="mailto:worldanello@gmail.com" className="top-nav-link">CONTACT US</a>
         </div>
       </div>
 
@@ -229,15 +252,6 @@ export default function Header() {
                 <span className="icon-label hide-mobile">CART</span>
               </button>
 
-              {/* Dark Mode Toggle */}
-              <button className="nav-icon-btn" onClick={toggleTheme} aria-label="Toggle dark mode" title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}>
-                {isDarkMode ? (
-                  <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
-                ) : (
-                  <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
-                )}
-                <span className="icon-label hide-mobile">{isDarkMode ? 'LIGHT' : 'DARK'}</span>
-              </button>
             </div>
 
             {/* Desktop User Account Dropdown */}

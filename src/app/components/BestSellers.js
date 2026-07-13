@@ -2,11 +2,9 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useTheme } from '../context/ThemeContext';
 import { useCart } from '../context/CartContext';
 
 export default function BestSellers({ products = [], onProductClick }) {
-  const { isDarkMode } = useTheme();
   const { addToCart } = useCart();
   const [hoveredId, setHoveredId] = useState(null);
 
@@ -69,7 +67,7 @@ export default function BestSellers({ products = [], onProductClick }) {
                             height: '100%',
                             display: 'block',
                             objectFit: 'cover',
-                            mixBlendMode: isDarkMode ? 'normal' : 'darken',
+                            mixBlendMode: 'darken',
                             transition: 'opacity 0.4s ease',
                             opacity: hoveredId === (p._id || p.id) ? 0 : 1
                           }}
@@ -86,7 +84,7 @@ export default function BestSellers({ products = [], onProductClick }) {
                             height: '100%',
                             display: 'block',
                             objectFit: 'cover',
-                            mixBlendMode: isDarkMode ? 'normal' : 'darken',
+                            mixBlendMode: 'darken',
                             transition: 'opacity 0.4s ease',
                             opacity: hoveredId === (p._id || p.id) ? 1 : 0,
                             pointerEvents: 'none'
@@ -107,7 +105,7 @@ export default function BestSellers({ products = [], onProductClick }) {
                             height: '100%',
                             display: 'block',
                             objectFit: 'cover',
-                            mixBlendMode: isDarkMode ? 'normal' : 'darken',
+                            mixBlendMode: 'darken',
                             transition: 'opacity 0.4s ease',
                             opacity: (hoveredId === (p._id || p.id) && p.images?.[1]) ? 0 : 1
                           }}
@@ -125,7 +123,7 @@ export default function BestSellers({ products = [], onProductClick }) {
                               height: '100%',
                               display: 'block',
                               objectFit: 'cover',
-                              mixBlendMode: isDarkMode ? 'normal' : 'darken',
+                              mixBlendMode: 'darken',
                               transition: 'opacity 0.4s ease',
                               opacity: hoveredId === (p._id || p.id) ? 1 : 0,
                               pointerEvents: 'none'

@@ -4,7 +4,6 @@ import { useAuth } from './context/AuthContext';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useTheme } from './context/ThemeContext';
 import dynamic from 'next/dynamic';
 import { useCart } from './context/CartContext';
 import Header from './components/Header';
@@ -121,7 +120,6 @@ export default function Home() {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const { user, logout } = useAuth();
   const router = useRouter();
-  const { isDarkMode, toggleTheme } = useTheme();
   const [ringType, setRingType] = useState('all');
   const [homeVideos, setHomeVideos] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -388,7 +386,7 @@ export default function Home() {
                         src={p.img || p.images?.[0] || '/placeholder.png'}
                         alt={p.name} fill
                         className="product-img-primary"
-                        style={{ objectFit: 'contain', padding: '12px', mixBlendMode: isDarkMode ? 'normal' : 'darken' }}
+                        style={{ objectFit: 'contain', padding: '12px', mixBlendMode: 'darken' }}
                         sizes="300px" priority={false}
                       />
                       {p.images?.[1] && (
@@ -396,7 +394,7 @@ export default function Home() {
                           src={p.images[1]}
                           alt={`${p.name} alternate view`} fill
                           className="product-img-secondary"
-                          style={{ objectFit: 'contain', padding: '12px', mixBlendMode: isDarkMode ? 'normal' : 'darken' }}
+                          style={{ objectFit: 'contain', padding: '12px', mixBlendMode: 'darken' }}
                           sizes="300px" priority={false}
                         />
                       )}
@@ -559,7 +557,7 @@ export default function Home() {
                     <div key={`exc-${p._id || p.id}`} className="product-card" onClick={() => router.push(`/products/${p.slug}`)} style={{ margin: '0', height: '100%' }}>
                       <div className="product-img">
                         <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                          <Image src={p.img || p.images?.[0] || '/placeholder.png'} alt={p.name} fill style={{ objectFit: 'contain', padding: '12px', mixBlendMode: isDarkMode ? 'normal' : 'darken' }} sizes="150px" priority={false} quality={80} loading="lazy" />
+                          <Image src={p.img || p.images?.[0] || '/placeholder.png'} alt={p.name} fill style={{ objectFit: 'contain', padding: '12px', mixBlendMode: 'darken' }} sizes="150px" priority={false} quality={80} loading="lazy" />
                         </div>
                         {(() => {
                           const discountPrice = p.badge && !isNaN(Number(p.badge)) ? Number(p.badge) : null;
