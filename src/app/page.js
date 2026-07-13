@@ -131,8 +131,8 @@ export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
   const [showWelcomePopup, setShowWelcomePopup] = useState(false);
 
-  const desktopHero = ['/diamond-rings-hero.webp', '/gold-rings-banner.webp', '/silver-rings-banner.webp'];
-  const mobileHero = ['/diamond-rings-hero.webp', '/gold-rings-banner.webp', '/silver-rings-banner.webp'];
+  const desktopHero = ['/1.png', '/2.png', '/3.png'];
+  const mobileHero = ['/1.png', '/2.png', '/3.png'];
   const heroImages = isMobile ? mobileHero : desktopHero;
 
   const [promoSliderIdx, setPromoSliderIdx] = useState(0);
@@ -246,6 +246,9 @@ export default function Home() {
         <h1 style={{ position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', border: '0' }}>
           Buy Premium Diamond, Gold & Silver Rings Online in India
         </h1>
+        {/* Spacer to naturally scale the hero container */}
+        <img src={heroImages[0]} alt="spacer" style={{ width: '100%', height: 'auto', visibility: 'hidden', display: 'block' }} />
+        
         <div className="hero-slider" onClick={() => router.push('/collections')} style={{ cursor: 'pointer' }}>
           {heroImages.map((img, idx) => (
             <div
@@ -266,7 +269,7 @@ export default function Home() {
                 fill 
                 priority={idx === 0} 
                 sizes="100vw"
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: 'contain', background: '#f8f8f8' }}
               />
             </div>
           ))}

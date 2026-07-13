@@ -634,7 +634,6 @@ body {
 .hero {
   position: relative;
   z-index: 0;
-  aspect-ratio: 1913 / 616;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -6571,3 +6570,26 @@ footer {
     font-size: 0.72rem;
   }
 }
+
+/* GLOBAL IMAGE ANIMATIONS */
+img {
+  transition: transform 0.5s ease;
+}
+
+.product-img:hover img,
+.feature-card:hover img,
+.insta-item:hover img,
+.collection-card:hover img,
+.shop-dropdown-item:hover img {
+  transform: scale(1.08);
+}
+
+.hero-slide.active img {
+  animation: heroZoomIn 6s linear forwards;
+}
+
+@keyframes heroZoomIn {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
+}
+

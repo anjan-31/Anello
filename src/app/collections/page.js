@@ -60,8 +60,8 @@ function CollectionsContent() {
 
   const [heroIdx, setHeroIdx] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const desktopHero = ['/diamond-rings-hero.webp', '/gold-rings-banner.webp', '/silver-rings-banner.webp'];
-  const mobileHero = ['/diamond-rings-hero.webp', '/gold-rings-banner.webp', '/silver-rings-banner.webp'];
+  const desktopHero = ['/1.png', '/2.png', '/3.png'];
+  const mobileHero = ['/1.png', '/2.png', '/3.png'];
   const heroImages = isMobile ? mobileHero : desktopHero;
 
   useEffect(() => {
@@ -130,13 +130,24 @@ function CollectionsContent() {
 
       {/* HERO */}
       <section className="hero">
+        {/* Spacer to naturally scale the hero container */}
+        <img src={heroImages[0]} alt="spacer" style={{ width: '100%', height: 'auto', visibility: 'hidden', display: 'block' }} />
+        
         <div className="hero-slider" onClick={() => router.push('/collections')} style={{ cursor: 'pointer' }}>
           {heroImages.map((img, idx) => (
             <div 
               key={idx} 
               className={`hero-slide ${idx === heroIdx ? 'active' : ''} ${idx % 2 === 0 ? 'zoom-in' : 'zoom-out'}`} 
-              style={{ backgroundImage: `url(${img})` }} 
-            />
+            >
+              <Image 
+                src={img} 
+                alt={`Hero Image ${idx + 1}`} 
+                fill 
+                priority={idx === 0} 
+                sizes="100vw"
+                style={{ objectFit: 'contain', background: '#f8f8f8' }}
+              />
+            </div>
           ))}
         </div>
         <div className="hero-line" />
