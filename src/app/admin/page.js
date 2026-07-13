@@ -120,7 +120,7 @@ const DEFAULT_PRODUCTS = [
   { id:8, name:'Infinity Love Couple Set', cat:'Silver Ring', price:18999, stock:19, sold:0, emoji:'❤️', badge:'-24%', isNewArrival:false, description:'Matching infinity love couple set.', images:[] },
 ];
 
-const CATS = ['Silver Ring'];
+const CATS = ['Gold Ring', 'Silver Ring'];
 const EMOJIS = ['💍','💛','🌹','💎','💜','🖤','💚','❤️','✨','👑','🔮','🎀'];
 
 const EMPTY_PROD = { name:'', cat:'Silver Ring', price:'', stock:'', sold:'0', emoji:'💍', badge:'', isNewArrival:false, isStylish:false, isBestSeller:false, isExclusive:false, description:'', images:[], video:'' };

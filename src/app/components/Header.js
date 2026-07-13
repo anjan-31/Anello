@@ -160,17 +160,18 @@ export default function Header() {
               <div className="shop-dropdown-menu">
                 <div className="shop-dropdown-header">ALL PRODUCTS</div>
                 <div className="shop-dropdown-list">
-                  <Link href="/collections" className="shop-dropdown-item" onClick={() => setShopMenuOpen(false)}>
-                    <span>Exclusive Ring</span>
+
+                  <Link href="/gold-rings" className="shop-dropdown-item" onClick={() => setShopMenuOpen(false)}>
+                    <span>Gold Rings</span>
                   </Link>
-                  <Link href="/collections" className="shop-dropdown-item" onClick={() => setShopMenuOpen(false)}>
+                  <Link href="/silver-rings" className="shop-dropdown-item" onClick={() => setShopMenuOpen(false)}>
+                    <span>Silver Rings</span>
+                  </Link>
+                  <Link href="/bestsellers" className="shop-dropdown-item" onClick={() => setShopMenuOpen(false)}>
                     <span>Best Sellers</span>
                   </Link>
                   <Link href="/collections" className="shop-dropdown-item" onClick={() => setShopMenuOpen(false)}>
-                    <span>NEW</span>
-                  </Link>
-                  <Link href="/collections" className="shop-dropdown-item" onClick={() => setShopMenuOpen(false)}>
-                    <span>All rings</span>
+                    <span>All Rings</span>
                   </Link>
                 </div>
               </div>

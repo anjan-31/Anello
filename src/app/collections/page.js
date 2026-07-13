@@ -16,7 +16,7 @@ const PRICE_RANGES = [
   { label: '₹50,000 – ₹1,00,000', min: 50000, max: 100000 },
   { label: 'Above ₹1,00,000', min: 100000, max: Infinity },
 ];
-const CATEGORIES = ['Silver Ring'];
+const CATEGORIES = ['Gold Ring', 'Silver Ring'];
 const SORT_OPTIONS = ['Popular', 'Price: Low to High', 'Price: High to Low', 'Newest', 'Discount'];
 
 function Stars({ r = 5, count = 0 }) {

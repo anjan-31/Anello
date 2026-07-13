@@ -8,7 +8,7 @@ export default function BestSellers({ products = [], onProductClick }) {
   const { addToCart } = useCart();
   const [hoveredId, setHoveredId] = useState(null);
 
-  const displayProducts = products.filter(p => p.isBestSeller).slice(0, 3);
+  const displayProducts = products.filter(p => p.isBestSeller).slice(0, 4);
 
   if (displayProducts.length === 0) return null;
 
@@ -177,8 +177,8 @@ export default function BestSellers({ products = [], onProductClick }) {
 
         {/* Footer */}
         <div className="bestsellers-controls">
-          <Link href="/collections" className="bs-view-all">
-            VIEW ALL PRODUCTS
+          <Link href="/bestsellers" className="bs-view-all">
+            VIEW MORE
           </Link>
         </div>
 
